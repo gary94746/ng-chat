@@ -183,8 +183,6 @@
   transform: scale(var(--ggs, 1));
   width: 22px;
   height: 22px;
-  border: 2px solid;
-  border-radius: 40px;
 }
 .gg-close-o::after,
 .gg-close-o::before {

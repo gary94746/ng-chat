@@ -68,30 +68,40 @@
         }"
         (click)="onUserClick(user)"
       >
-        <div *ngIf="!user.avatar" class="icon-wrapper">
-          <i class="user-icon"></i>
+        <div class="item">
+          <img
+            *ngIf="!user.avatar"
+            alt=""
+            class="avatar"
+            height="30"
+            width="30"
+            src="https://toppng.com/uploads/preview/user-account-management-logo-user-icon-11562867145a56rus2zwu.png"
+          />
+
+          <img
+            *ngIf="user.avatar"
+            alt=""
+            class="avatar"
+            height="30"
+            width="30"
+            [src]="user.avatar | sanitize"
+          />
+          <span
+            class="notify-badget"
+            [ngClass]="{
+              'ng-chat-participant-status': true,
+              online: user.status == ChatParticipantStatus.Online,
+              busy: user.status == ChatParticipantStatus.Busy,
+              away: user.status == ChatParticipantStatus.Away,
+              offline: user.status == ChatParticipantStatus.Offline
+            }"
+            title="{{
+              chatParticipantStatusDescriptor(user.status, localization)
+            }}"
+          ></span>
         </div>
-        <img
-          *ngIf="user.avatar"
-          alt=""
-          class="avatar"
-          height="30"
-          width="30"
-          [src]="user.avatar | sanitize"
-        />
         <strong title="{{ user.displayName }}">{{ user.displayName }}</strong>
-        <!--        <span-->
-        <!--[ngClass]="{-->
-        <!--'ng-chat-participant-status': true,-->
-        <!--online: user.status == ChatParticipantStatus.Online,-->
-        <!--busy: user.status == ChatParticipantStatus.Busy,-->
-        <!--away: user.status == ChatParticipantStatus.Away,-->
-        <!--offline: user.status == ChatParticipantStatus.Offline-->
-        <!--}"-->
-        <!--title="{{-->
-        <!--chatParticipantStatusDescriptor(user.status, localization)-->
-        <!--}}"-->
-        <!--></span>-->
+
         <button
           style="float: right;"
           class="delete-user"
@@ -101,9 +111,9 @@
         </button>
         <span
           *ngIf="unreadMessagesTotalByParticipant(user).length > 0"
-          class="ng-chat-unread-messages-count unread-messages-counter-container primary-text"
-          >{{ unreadMessagesTotalByParticipant(user) }}</span
-        >
+          class="ng-chat-participant-status busy"
+          style="margin-right: 10px;"
+        ></span>
       </div>
     </li>
   </ul>

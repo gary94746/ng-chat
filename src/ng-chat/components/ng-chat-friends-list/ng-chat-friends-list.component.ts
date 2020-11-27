@@ -143,6 +143,21 @@ export class NgChatFriendsListComponent implements OnChanges {
     }
   }
 
+  lastMessage(participant: IChatParticipant) {
+    return this.participantsResponse
+      .filter(
+        (x) =>
+          x.participant.id == participant.id &&
+          !this.participantsInteractedWith.find(
+            (u) => u.id == participant.id
+          ) &&
+          x.metadata
+      )
+      .map(
+        (participantResponse) => participantResponse.metadata.lastMessage
+      )[0];
+  }
+
   cleanUpUserSelection = () => (this.selectedUsersFromFriendsList = []);
 
   // Toggle friends list visibility

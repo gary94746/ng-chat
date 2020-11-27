@@ -127,6 +127,14 @@
   outline: none;
 }
 
+.last-message {
+  left: -44px;
+  position: relative;
+  top: 14px;
+  color: #005999;
+  font-weight: 100;
+}
+
 /* Mobile viewport only */
 @media only screen and (max-width: 581px) {
   #ng-chat-people {

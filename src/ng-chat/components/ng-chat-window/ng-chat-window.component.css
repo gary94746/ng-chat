@@ -10,6 +10,27 @@
   border-bottom: 0;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
 }
+
+.ng-chat-window .ng-chat-title.secondary-background {
+  padding-top: 8px;
+  box-shadow: 0 4px 2px -3px #c7c7c7;
+}
+
+.ng-chat-window .ng-chat-title.secondary-background .title-user-icon {
+  float: left;
+  margin-right: 10px;
+  position: relative;
+}
+
+.ng-chat-window .ng-chat-title .title-user-icon .ng-chat-participant-status {
+  position: absolute;
+  bottom: 0;
+  margin-left: -10px;
+  border: 1px solid white;
+  width: 12px;
+  height: 12px;
+}
+
 .ng-chat-window-collapsed {
   height: 30px !important;
 }
@@ -74,7 +95,7 @@
 .ng-chat-window .ng-chat-messages {
   padding: 10px;
   width: 100%;
-  height: calc(90% - 40px);
+  height: calc(90% - 55px);
   box-sizing: border-box;
   position: relative;
   overflow: auto;
@@ -120,7 +141,6 @@
   padding: 0;
   margin-top: 0;
   border-radius: 5px;
-  padding: 10px;
   margin-top: 0;
   margin-bottom: 5px;
   font-size: 0.9em;
@@ -131,13 +151,16 @@
   .ng-chat-message.ng-chat-message-received
   > div.received-chat-message-container {
   float: left;
-  margin-left: 40px;
-  padding-top: 7px;
-  padding-bottom: 7px;
   border-style: solid;
   border-width: 3px;
   margin-top: 0;
   margin-bottom: 5px;
+}
+.ng-chat-window
+  .ng-chat-messages
+  .ng-chat-message.ng-chat-message-received
+  .message-sent-date {
+  text-align: left;
 }
 .ng-chat-window .ng-chat-messages .ng-chat-message .file-message-container {
   float: right;

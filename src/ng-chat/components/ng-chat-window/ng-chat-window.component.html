@@ -22,11 +22,6 @@
           )
         }}"
       ></span>
-      <span
-        *ngIf="unreadMessagesTotal(window).length > 0"
-        class="ng-chat-unread-messages-count unread-messages-counter-container primary-text"
-        >{{ unreadMessagesTotal(window) }}</span
-      >
     </div>
     <a
       href="javascript:void(0);"
@@ -43,29 +38,39 @@
       class="ng-chat-title-visibility-toggle-area"
       (click)="onChatWindowClicked(window)"
     >
+      <div class="title-user-icon">
+        <img
+          alt=""
+          class="avatar"
+          height="30"
+          width="30"
+          [src]="'assets/user.svg'"
+        />
+        <span
+          [ngClass]="{
+            'ng-chat-participant-status': true,
+            online: window.participant.status == ChatParticipantStatus.Online,
+            busy: window.participant.status == ChatParticipantStatus.Busy,
+            away: window.participant.status == ChatParticipantStatus.Away,
+            offline: window.participant.status == ChatParticipantStatus.Offline
+          }"
+          title="{{
+            chatParticipantStatusDescriptor(
+              window.participant.status,
+              localization
+            )
+          }}"
+        ></span>
+      </div>
       <strong title="{{ window.participant.displayName }}">
         {{ window.participant.displayName }}
       </strong>
-      <span
-        [ngClass]="{
-          'ng-chat-participant-status': true,
-          online: window.participant.status == ChatParticipantStatus.Online,
-          busy: window.participant.status == ChatParticipantStatus.Busy,
-          away: window.participant.status == ChatParticipantStatus.Away,
-          offline: window.participant.status == ChatParticipantStatus.Offline
-        }"
-        title="{{
-          chatParticipantStatusDescriptor(
-            window.participant.status,
-            localization
-          )
-        }}"
-      ></span>
-      <span
-        *ngIf="unreadMessagesTotal(window).length > 0"
-        class="ng-chat-unread-messages-count unread-messages-counter-container primary-text"
-        >{{ unreadMessagesTotal(window) }}</span
-      >
+
+      <!--<span-->
+      <!--*ngIf="unreadMessagesTotal(window).length > 0"-->
+      <!--class="ng-chat-unread-messages-count unread-messages-counter-container primary-text"-->
+      <!-->{{ unreadMessagesTotal(window) }}</span-->
+      <!-->-->
     </div>
     <a
       href="javascript:void(0);"
@@ -103,20 +108,20 @@
       }"
     >
       <ng-container *ngIf="isAvatarVisible(window, message, i)">
-        <div
-          *ngIf="!getChatWindowAvatar(window.participant, message)"
-          class="icon-wrapper"
-        >
-          <i class="user-icon"></i>
-        </div>
-        <img
-          *ngIf="getChatWindowAvatar(window.participant, message)"
-          alt=""
-          class="avatar"
-          height="30"
-          width="30"
-          [src]="getChatWindowAvatar(window.participant, message) | sanitize"
-        />
+        <!--<div-->
+        <!--*ngIf="!getChatWindowAvatar(window.participant, message)"-->
+        <!--class="icon-wrapper"-->
+        <!-->-->
+        <!--<i class="user-icon"></i>-->
+        <!--</div>-->
+        <!--        <img-->
+        <!--*ngIf="getChatWindowAvatar(window.participant, message)"-->
+        <!--alt=""-->
+        <!--class="avatar"-->
+        <!--height="30"-->
+        <!--width="30"-->
+        <!--[src]="getChatWindowAvatar(window.participant, message) | sanitize"-->
+        <!--/>-->
         <span
           *ngIf="
             window.participant.participantType == ChatParticipantType.Group
@@ -133,16 +138,19 @@
             'received-chat-message-container': message.fromId != userId
           }"
         >
-          <span
-            [innerHtml]="
-              message.message | emojify: emojisEnabled | linkfy: linkfyEnabled
-            "
-          ></span>
+          <div class="message-wrapper">
+            <span
+              [innerHtml]="
+                message.message | emojify: emojisEnabled | linkfy: linkfyEnabled
+              "
+            ></span>
+          </div>
           <span
             *ngIf="showMessageDate && message.dateSent"
             class="message-sent-date"
-            >{{ message.dateSent | date: messageDatePipeFormat }}</span
           >
+            {{ message.dateSent | date: messageDatePipeFormat }} {{ " hrs" }}
+          </span>
         </div>
         <div
           *ngSwitchCase="MessageType.Image"
@@ -156,8 +164,9 @@
           <span
             *ngIf="showMessageDate && message.dateSent"
             class="message-sent-date"
-            >{{ message.dateSent | date: messageDatePipeFormat }}</span
           >
+            {{ message.dateSent | date: messageDatePipeFormat }} {{ " hrs" }}
+          </span>
         </div>
         <div
           *ngSwitchCase="MessageType.File"
@@ -221,7 +230,7 @@
         <input
           type="file"
           #nativeFileInput
-          style="display: none;"
+          style="display: none"
           [attr.id]="getUniqueFileUploadInstanceId(window)"
           (change)="onFileChosen(window)"
         />

@@ -3,25 +3,35 @@
     <div
       class="ng-chat-title-visibility-toggle-area"
       (click)="onChatWindowClicked(window)"
+      style="margin-top: -8px"
     >
+      <div class="title-user-icon">
+        <img
+          alt=""
+          class="avatar"
+          height="30"
+          width="30"
+          [src]="'assets/user.svg'"
+        />
+        <span
+          [ngClass]="{
+            'ng-chat-participant-status': true,
+            online: window.participant.status == ChatParticipantStatus.Online,
+            busy: window.participant.status == ChatParticipantStatus.Busy,
+            away: window.participant.status == ChatParticipantStatus.Away,
+            offline: window.participant.status == ChatParticipantStatus.Offline
+          }"
+          title="{{
+            chatParticipantStatusDescriptor(
+              window.participant.status,
+              localization
+            )
+          }}"
+        ></span>
+      </div>
       <strong title="{{ window.participant.displayName }}">
         {{ window.participant.displayName }}
       </strong>
-      <span
-        [ngClass]="{
-          'ng-chat-participant-status': true,
-          online: window.participant.status == ChatParticipantStatus.Online,
-          busy: window.participant.status == ChatParticipantStatus.Busy,
-          away: window.participant.status == ChatParticipantStatus.Away,
-          offline: window.participant.status == ChatParticipantStatus.Offline
-        }"
-        title="{{
-          chatParticipantStatusDescriptor(
-            window.participant.status,
-            localization
-          )
-        }}"
-      ></span>
     </div>
     <a
       href="javascript:void(0);"
@@ -65,12 +75,6 @@
       <strong title="{{ window.participant.displayName }}">
         {{ window.participant.displayName }}
       </strong>
-
-      <!--<span-->
-      <!--*ngIf="unreadMessagesTotal(window).length > 0"-->
-      <!--class="ng-chat-unread-messages-count unread-messages-counter-container primary-text"-->
-      <!-->{{ unreadMessagesTotal(window) }}</span-->
-      <!-->-->
     </div>
     <a
       href="javascript:void(0);"
@@ -108,20 +112,6 @@
       }"
     >
       <ng-container *ngIf="isAvatarVisible(window, message, i)">
-        <!--<div-->
-        <!--*ngIf="!getChatWindowAvatar(window.participant, message)"-->
-        <!--class="icon-wrapper"-->
-        <!-->-->
-        <!--<i class="user-icon"></i>-->
-        <!--</div>-->
-        <!--        <img-->
-        <!--*ngIf="getChatWindowAvatar(window.participant, message)"-->
-        <!--alt=""-->
-        <!--class="avatar"-->
-        <!--height="30"-->
-        <!--width="30"-->
-        <!--[src]="getChatWindowAvatar(window.participant, message) | sanitize"-->
-        <!--/>-->
         <span
           *ngIf="
             window.participant.participantType == ChatParticipantType.Group

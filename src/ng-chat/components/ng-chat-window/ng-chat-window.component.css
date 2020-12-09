@@ -32,8 +32,13 @@
 }
 
 .ng-chat-window-collapsed {
-  height: 30px !important;
+  height: 40px !important;
 }
+
+.ng-chat-window-collapsed .ng-chat-title.secondary-background {
+  padding-top: 12px;
+}
+
 .ng-chat-window .ng-chat-footer {
   box-sizing: border-box;
   padding: 0;
@@ -45,15 +50,8 @@
   border-color: inherit;
 }
 .ng-chat-window .ng-chat-footer .footer-wrapper > input {
-  font-size: 0.8em;
   box-sizing: border-box;
-  padding: 0 5px;
-  display: block;
   height: 100%;
-  margin-left: 20px;
-  width: -webkit-fill-available;
-  margin-right: 20px;
-  margin-top: 2px;
   border: none;
 }
 .ng-chat-window .ng-chat-footer > input.has-side-action {
@@ -95,7 +93,7 @@
 .ng-chat-window .ng-chat-messages {
   padding: 10px;
   width: 100%;
-  height: calc(90% - 55px);
+  height: calc(90% - 60px);
   box-sizing: border-box;
   position: relative;
   overflow: auto;
@@ -260,12 +258,29 @@
   margin-top: 7px;
   margin-left: 5px;
   margin-right: 5px;
-  border-radius: 20px;
+  border-radius: 8px;
+}
+
+.footer-wrapper .paperclip-button {
+  float: left;
+  margin-top: 4px;
+  margin-right: 5px;
+}
+
+.footer-wrapper input {
+  width: 85%;
+}
+
+.footer-wrapper .send-button {
+  float: right;
+  margin-top: 4px;
 }
 
 /* Mobile viewport only */
 @media only screen and (max-width: 581px) {
   .ng-chat-window {
-    position: initial;
+    position: fixed;
+    width: 100%;
+    right: 0px !important;
   }
 }

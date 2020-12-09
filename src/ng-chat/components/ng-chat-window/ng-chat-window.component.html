@@ -190,6 +190,25 @@
 
   <div class="ng-chat-footer primary-outline-color primary-background">
     <div class="footer-wrapper">
+      <ng-container *ngIf="fileUploadAdapter">
+        <img
+          alt=""
+          *ngIf="!isUploadingFile(window)"
+          class="paperclip-button"
+          height="15"
+          width="15"
+          [src]="'assets/paper-clip.svg'"
+          (click)="triggerNativeFileUpload(window)"
+        />
+        <input
+          type="file"
+          #nativeFileInput
+          style="display: none"
+          [attr.id]="getUniqueFileUploadInstanceId(window)"
+          (change)="onFileChosen(window)"
+        />
+        <div *ngIf="isUploadingFile(window)" class="loader"></div>
+      </ng-container>
       <input
         #chatWindowInput
         type="text"
@@ -204,28 +223,14 @@
         (blur)="toggleWindowFocus(window)"
         (focus)="toggleWindowFocus(window)"
       />
-      <a class="btn-send" (click)="onSendButtonClicked($event, window)">
-        <i class="navigate-solid icon"></i>
-      </a>
-
-      <!-- File Upload -->
-      <ng-container *ngIf="fileUploadAdapter">
-        <a
-          *ngIf="!isUploadingFile(window)"
-          class="btn-add-file"
-          (click)="triggerNativeFileUpload(window)"
-        >
-          <i class="paperclip-icon"></i>
-        </a>
-        <input
-          type="file"
-          #nativeFileInput
-          style="display: none"
-          [attr.id]="getUniqueFileUploadInstanceId(window)"
-          (change)="onFileChosen(window)"
-        />
-        <div *ngIf="isUploadingFile(window)" class="loader"></div>
-      </ng-container>
+      <img
+        alt=""
+        class="send-button"
+        height="15"
+        width="15"
+        [src]="'assets/ic_enviar.svg'"
+        (click)="onSendButtonClicked($event, window)"
+      />
     </div>
   </div>
 </ng-container>

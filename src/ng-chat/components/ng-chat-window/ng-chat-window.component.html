@@ -161,28 +161,42 @@
         <div
           *ngSwitchCase="MessageType.File"
           [ngClass]="{
-            'file-message-container': true,
-            received: message.fromId != userId
+            'sent-chat-message-container': message.fromId == userId,
+            'received-chat-message-container': message.fromId != userId
           }"
         >
-          <div class="file-message-icon-container">
-            <i class="paperclip-icon"></i>
+          <div class="message-wrapper">
+            <span
+              [innerHtml]="
+                message.message | emojify: emojisEnabled | linkfy: linkfyEnabled
+              "
+            ></span>
           </div>
-          <a
-            class="file-details"
-            [attr.href]="message.downloadUrl"
-            target="_blank"
-            rel="noopener noreferrer"
-            (click)="this.markMessagesAsRead([message])"
-            download
+          <span
+            *ngIf="showMessageDate && message.dateSent"
+            class="message-sent-date"
           >
-            <span class="file-message-title" [attr.title]="message.message">{{
-              message.message
-            }}</span>
-            <span *ngIf="message.fileSizeInBytes" class="file-message-size"
-              >{{ message.fileSizeInBytes }} Bytes</span
-            >
-          </a>
+            {{ message.dateSent | date: messageDatePipeFormat }} {{ " hrs" }}
+          </span>
+
+          <!--<div class="file-message-icon-container">-->
+          <!--<i class="paperclip-icon"></i>-->
+          <!--</div>-->
+          <!--<a-->
+          <!--class="file-details"-->
+          <!--[attr.href]="message.downloadUrl"-->
+          <!--target="_blank"-->
+          <!--rel="noopener noreferrer"-->
+          <!--(click)="this.markMessagesAsRead([message])"-->
+          <!--download-->
+          <!-->-->
+          <!--<span class="file-message-title" [attr.title]="message.message">{{-->
+          <!--message.message-->
+          <!--}}</span>-->
+          <!--<span *ngIf="message.fileSizeInBytes" class="file-message-size"-->
+          <!-->{{ message.fileSizeInBytes }} Bytes</span-->
+          <!-->-->
+          <!--</a>-->
         </div>
       </ng-container>
     </div>

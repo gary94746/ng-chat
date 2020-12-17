@@ -317,15 +317,20 @@ export class NgChatWindowComponent {
       this.fileUploadersInUse.push(fileUploadInstanceId);
 
       this.fileUploadAdapter.uploadFile(file, window.participant.id).subscribe(
-        (fileMessage) => {
+        (res) => {
+          const message = new Message();
+          message.type = MessageType.File;
+          message.message = res.url;
+          message.toId = window.participant.id;
+
           this.clearInUseFileUploader(fileUploadInstanceId);
 
-          fileMessage.fromId = this.userId;
+          message.fromId = this.userId;
 
           // Push file message to current user window
-          window.messages.push(fileMessage);
+          window.messages.push(message);
 
-          this.onMessageSent.emit(fileMessage);
+          this.onMessageSent.emit(message);
 
           this.scrollChatWindow(window, ScrollDirection.Bottom);
 

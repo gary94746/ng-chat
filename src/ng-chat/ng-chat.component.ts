@@ -511,10 +511,11 @@ export class NgChat implements OnInit, IChatController {
 
   onParticipantClickedFromFriendsList(participant: IChatParticipant): void {
     /* ONLY FOR MOBILE, CLOSE PREVIOUS WINDOW*/
-    if (this.isViewportOnMobileEnabled && this.viewPortTotalArea < 512) {
+    if (this.isViewportOnMobileEnabled && this.viewPortTotalArea < 576) {
       const otherChat = this.windows.find(
         (window) => window.participant.id != participant.id
       );
+      this.hideFriendsList = true;
       if (otherChat) this.closeWindow(otherChat);
     }
     this.openChatWindow(participant, true, true);

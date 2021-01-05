@@ -327,6 +327,7 @@ export class NgChatWindowComponent {
           message.type = MessageType.File;
           message.message = res.url;
           message.toId = window.participant.id;
+          message.dateSent = new Date();
 
           this.clearInUseFileUploader(fileUploadInstanceId);
 

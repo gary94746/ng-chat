@@ -165,12 +165,37 @@
             'received-chat-message-container': message.fromId != userId
           }"
         >
-          <div class="message-wrapper">
-            <span
-              [innerHtml]="
-                message.message | emojify: emojisEnabled | linkfy: linkfyEnabled
-              "
-            ></span>
+          <div
+            class="message-wrapper"
+            style="
+              display: flex;
+              justify-content: center;
+              overflow: hidden;
+              align-items: center;
+              overflow-wrap: anywhere;
+            "
+          >
+            <div class="file-message-icon-container" style="margin-right: 10px">
+              <img
+                alt=""
+                class="send-button"
+                height="15"
+                width="15"
+                [src]="'assets/paper-clip.svg'"
+              />
+            </div>
+            <a
+              class="file-details"
+              [attr.href]="message.message"
+              target="_blank"
+              rel="noopener noreferrer"
+              (click)="this.markMessagesAsRead([message])"
+              download
+            >
+              <span class="file-message-title" [attr.title]="message.message">{{
+                message.message
+              }}</span>
+            </a>
           </div>
           <span
             *ngIf="showMessageDate && message.dateSent"
@@ -178,25 +203,6 @@
           >
             {{ message.dateSent | date: messageDatePipeFormat }} {{ " hrs" }}
           </span>
-
-          <!--<div class="file-message-icon-container">-->
-          <!--<i class="paperclip-icon"></i>-->
-          <!--</div>-->
-          <!--<a-->
-          <!--class="file-details"-->
-          <!--[attr.href]="message.downloadUrl"-->
-          <!--target="_blank"-->
-          <!--rel="noopener noreferrer"-->
-          <!--(click)="this.markMessagesAsRead([message])"-->
-          <!--download-->
-          <!-->-->
-          <!--<span class="file-message-title" [attr.title]="message.message">{{-->
-          <!--message.message-->
-          <!--}}</span>-->
-          <!--<span *ngIf="message.fileSizeInBytes" class="file-message-size"-->
-          <!-->{{ message.fileSizeInBytes }} Bytes</span-->
-          <!-->-->
-          <!--</a>-->
         </div>
       </ng-container>
     </div>

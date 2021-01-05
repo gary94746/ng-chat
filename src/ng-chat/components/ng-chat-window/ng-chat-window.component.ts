@@ -314,6 +314,11 @@ export class NgChatWindowComponent {
     if (uploadElementRef) {
       const file: File = uploadElementRef.nativeElement.files[0];
 
+      if (file.size > 5_242_880) {
+        alert("El tamaño máximo del archivo adjunto es de 5mb");
+        return;
+      }
+
       this.fileUploadersInUse.push(fileUploadInstanceId);
 
       this.fileUploadAdapter.uploadFile(file, window.participant.id).subscribe(
@@ -324,6 +329,12 @@ export class NgChatWindowComponent {
           message.toId = window.participant.id;
 
           this.clearInUseFileUploader(fileUploadInstanceId);
+
+          const imagesExt = ["jpeg", "jpg", "png", "gif"];
+          const fileExt = message.message.split(".").pop();
+          if (imagesExt.some((ext) => ext == fileExt)) {
+            message.type = MessageType.Image;
+          }
 
           message.fromId = this.userId;
 

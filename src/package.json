@@ -1,6 +1,6 @@
 {
-  "name": "ng-chat-modified",
-  "version": "3.0.5",
+  "name": "ng-chat-kmk",
+  "version": "3.0.6",
   "peerDependencies": {
     "@angular/common": "*",
     "@angular/core": "*",
@@ -36,7 +36,7 @@
     "linux-build-legacy": "npm run templates && npm run transpile && npm run package && npm run minify && npm run linux-clean",
     "copy-readme": "copy ..\\README.md dist\\README.md",
     "build": "ng-packagr -p package.json",
-    "build-package": "ng-packagr -p package.json && npm run copy-readme"
+    "build-package": "ng-packagr -p package.json"
   },
   "description": "A simple facebook/linkedin lookalike chat module for Angular applications.",
   "author": "Rafael Carvalho",

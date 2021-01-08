@@ -58,9 +58,10 @@ export class NgChatFriendsListComponent implements OnChanges {
   public currentActiveOption: IChatOption | null;
 
   @Output()
-  public onParticipantClicked: EventEmitter<
-    IChatParticipant
-  > = new EventEmitter();
+  public onParticipantClicked: EventEmitter<IChatParticipant> = new EventEmitter();
+
+  @Output()
+  onParticipantDeleteClicked: EventEmitter<any> = new EventEmitter();
 
   @Output()
   public onOptionPromptCanceled: EventEmitter<any> = new EventEmitter();
@@ -95,8 +96,7 @@ export class NgChatFriendsListComponent implements OnChanges {
   }
 
   deleteParticipant(userId: any) {
-    this.participants = this.participants.filter((x) => x.id != userId);
-    this.filteredParticipants;
+    this.onParticipantDeleteClicked.emit(userId);
   }
 
   get filteredParticipants(): IChatParticipant[] {

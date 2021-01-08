@@ -20,9 +20,7 @@
         online: true
       }"
     ></span>
-    <span class="current-status">
-      En linea
-    </span>
+    <span class="current-status"> En linea </span>
   </a>
   <div
     *ngIf="currentActiveOption"
@@ -104,7 +102,7 @@
         <strong class="last-message">{{ lastMessage(user) }}</strong>
 
         <button
-          style="float: right;"
+          style="float: right"
           class="delete-user"
           (click)="deleteParticipant(user.id)"
         >
@@ -113,7 +111,7 @@
         <span
           *ngIf="unreadMessagesTotalByParticipant(user).length > 0"
           class="ng-chat-participant-status busy"
-          style="margin-right: 10px;"
+          style="margin-right: 10px"
         ></span>
       </div>
     </li>

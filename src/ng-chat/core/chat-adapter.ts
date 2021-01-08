@@ -1,34 +1,43 @@
-import { Observable } from 'rxjs';
+import { Observable } from "rxjs";
 import { Message } from "./message";
 import { User } from "./user";
 import { ParticipantResponse } from "./participant-response";
-import { IChatParticipant } from './chat-participant';
+import { IChatParticipant } from "./chat-participant";
 
-export abstract class ChatAdapter
-{
-    // ### Abstract adapter methods ###
+export abstract class ChatAdapter {
+  // ### Abstract adapter methods ###
 
-    public abstract listFriends(): Observable<ParticipantResponse[]>;
-    
-    public abstract getMessageHistory(destinataryId: any): Observable<Message[]>;
+  public abstract listFriends(): Observable<ParticipantResponse[]>;
 
-    public abstract sendMessage(message: Message): void;
+  public abstract getMessageHistory(destinataryId: any): Observable<Message[]>;
 
-    // ### Adapter/Chat income/ingress events ###
+  public abstract sendMessage(message: Message): void;
 
-    public onFriendsListChanged(participantsResponse: ParticipantResponse[]): void
-    {
-        this.friendsListChangedHandler(participantsResponse);
-    }
+  public abstract deleteChat(userId: any): void;
 
-    public onMessageReceived(participant: IChatParticipant, message: Message): void
-    {
-        this.messageReceivedHandler(participant, message);
-    }
-    
-    // Event handlers
-    /** @internal */
-    friendsListChangedHandler: (participantsResponse: ParticipantResponse[]) => void  = (participantsResponse: ParticipantResponse[]) => {};
-    /** @internal */
-    messageReceivedHandler: (participant: IChatParticipant, message: Message) => void = (participant: IChatParticipant, message: Message) => {};
+  // ### Adapter/Chat income/ingress events ###
+
+  public onFriendsListChanged(
+    participantsResponse: ParticipantResponse[]
+  ): void {
+    this.friendsListChangedHandler(participantsResponse);
+  }
+
+  public onMessageReceived(
+    participant: IChatParticipant,
+    message: Message
+  ): void {
+    this.messageReceivedHandler(participant, message);
+  }
+
+  // Event handlers
+  /** @internal */
+  friendsListChangedHandler: (
+    participantsResponse: ParticipantResponse[]
+  ) => void = (participantsResponse: ParticipantResponse[]) => {};
+  /** @internal */
+  messageReceivedHandler: (
+    participant: IChatParticipant,
+    message: Message
+  ) => void = (participant: IChatParticipant, message: Message) => {};
 }

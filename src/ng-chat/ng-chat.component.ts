@@ -461,6 +461,10 @@ export class NgChat implements OnInit, IChatController {
     }
   }
 
+  onChatDeleted(userId: any) {
+    this.adapter.deleteChat(userId);
+  }
+
   // Updates the friends list via the event handler
   private onFriendsListChanged(
     participantsResponse: ParticipantResponse[]
